@@ -1,0 +1,118 @@
+#schemaGrid {
+    align-items: start
+}
+
+.schema-card {
+    display: block;
+    overflow: hidden
+}
+
+.schema-card-head {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    padding: 14px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: #0e1722;
+    color: var(--text)
+}
+
+.schema-card-head span {
+    min-width: 0
+}
+
+.schema-card-head small {
+    display: block;
+    color: var(--cyan);
+    font: 9px var(--mono);
+    letter-spacing: 1px
+}
+
+.schema-card-head b {
+    display: block;
+    margin-top: 3px;
+    color: #dce7ef;
+    font: 600 15px var(--mono)
+}
+
+.schema-card-head i {
+    margin-left: auto;
+    color: #627387;
+    font: 9px var(--mono);
+    font-style: normal
+}
+
+.schema-card-head em {
+    color: var(--cyan);
+    font: 9px var(--mono);
+    font-style: normal
+}
+
+.schema-card-head:hover {
+    background: #12202c
+}
+
+.table-description {
+    display: block !important;
+    margin: 0 !important;
+    padding: 13px 14px !important;
+    border-bottom: 1px solid #1b2835;
+    color: #a8b5c1 !important;
+    font: 500 12px/1.65 'Noto Sans Thai', sans-serif !important
+}
+
+.column-list {
+    padding: 4px 12px 10px
+}
+
+.column-detail {
+    padding: 10px 2px;
+    border-bottom: 1px solid #172330
+}
+
+.column-detail:last-child {
+    border-bottom: 0
+}
+
+.column-detail>div {
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
+.column-detail b {
+    color: #d1dce4;
+    font: 11px var(--mono)
+}
+
+.column-detail code {
+    margin-left: auto;
+    color: #6baea8;
+    font: 8px var(--mono);
+    text-align: right
+}
+
+.column-detail p {
+    display: block !important;
+    margin: 5px 0 0 !important;
+    padding: 0 !important;
+    color: #748497 !important;
+    font: 10px/1.5 'Noto Sans Thai', sans-serif !important
+}
+
+@media(max-width:760px) {
+    .table-description {
+        font-size: 13px !important
+    }
+
+    .column-detail b {
+        font-size: 12px
+    }
+
+    .column-detail p {
+        font-size: 11px !important
+    }
+}

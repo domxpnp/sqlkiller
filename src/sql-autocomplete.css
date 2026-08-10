@@ -1,0 +1,92 @@
+.sql-autocomplete {
+  position: fixed;
+  z-index: 1000;
+  max-height: 260px;
+  overflow: auto;
+  padding: 5px;
+  border: 1px solid #315269;
+  border-radius: 5px;
+  background: #09121c;
+  color: #dbe6ed;
+  box-shadow: 0 16px 36px #000b, 0 0 22px #42e0ce14;
+  font: 12px/1.35 'IBM Plex Mono', Consolas, monospace;
+}
+
+.sql-autocomplete[hidden] {
+  display: none;
+}
+
+.sql-autocomplete__option {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  min-height: 33px;
+  padding: 5px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sql-autocomplete__option:hover,
+.sql-autocomplete__option.is-selected {
+  background: #132837;
+  outline: 1px solid #42e0ce4d;
+}
+
+.sql-autocomplete__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 43px;
+  padding: 2px 4px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: 8px;
+  letter-spacing: .5px;
+}
+
+.sql-autocomplete__tag--sql {
+  color: #e8c765;
+  background: #e8c76512;
+}
+
+.sql-autocomplete__tag--table {
+  color: #42e0ce;
+  background: #42e0ce12;
+}
+
+.sql-autocomplete__tag--field {
+  color: #8ebcff;
+  background: #8ebcff12;
+}
+
+.sql-autocomplete__label {
+  overflow: hidden;
+  color: #e6edf3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sql-autocomplete__detail {
+  overflow: hidden;
+  max-width: 120px;
+  color: #718498;
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .sql-autocomplete {
+    max-height: 210px;
+    font-size: 11px;
+  }
+
+  .sql-autocomplete__option {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+
+  .sql-autocomplete__detail {
+    display: none;
+  }
+}

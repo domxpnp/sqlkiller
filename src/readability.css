@@ -1,0 +1,289 @@
+.case-live {
+    font-size: 12px
+}
+
+.rank small {
+    font-size: 9px
+}
+
+.rank b {
+    font-size: 11px
+}
+
+.board-head small {
+    font-size: 11px
+}
+
+.board-head p {
+    font-size: 15px
+}
+
+.career small {
+    font-size: 10px
+}
+
+.case-no {
+    font-size: 13px
+}
+
+.case-no span {
+    font-size: 10px
+}
+
+.case-card>small {
+    font-size: 10px
+}
+
+.case-card h2 {
+    font-size: 23px
+}
+
+.case-card>p {
+    font-size: 12px
+}
+
+.case-card>div:last-child b {
+    font-size: 10px
+}
+
+.case-card>div:last-child span {
+    font-size: 12px
+}
+
+.board-foot {
+    font-size: 11px
+}
+
+.back {
+    font-size: 10px
+}
+
+.case>small {
+    font-size: 11px
+}
+
+.case h1 {
+    font-size: 32px
+}
+
+.meta {
+    font-size: 10px
+}
+
+.brief {
+    font-size: 13px;
+    line-height: 1.85
+}
+
+.label {
+    font-size: 11px
+}
+
+.mission i {
+    font-size: 11px
+}
+
+.mission b {
+    font-size: 13px
+}
+
+.mission small {
+    font-size: 10px;
+    line-height: 1.55
+}
+
+.clearance span,
+.clearance b {
+    font-size: 10px
+}
+
+.tab {
+    font-size: 11px
+}
+
+.connected {
+    font-size: 10px
+}
+
+.connected b {
+    font-size: 8px
+}
+
+.windowbar,
+.result-head {
+    font-size: 10px
+}
+
+.windowbar button {
+    font-size: 10px
+}
+
+.code textarea {
+    font-size: 15px;
+    line-height: 26px
+}
+
+.code>div {
+    font-size: 13px;
+    line-height: 26px
+}
+
+.runbar {
+    font-size: 10px
+}
+
+.runbar button {
+    font-size: 12px
+}
+
+.table-wrap table {
+    font-size: 12px
+}
+
+th {
+    font-size: 10px
+}
+
+td {
+    padding-top: 12px;
+    padding-bottom: 12px
+}
+
+.badge {
+    font-size: 10px
+}
+
+.hint {
+    font-size: 12px;
+    line-height: 1.55
+}
+
+.hint>b,
+.hint button {
+    font-size: 10px
+}
+
+.e-title small {
+    font-size: 10px
+}
+
+.e-title b {
+    font-size: 17px
+}
+
+#empty>b {
+    font-size: 14px
+}
+
+#empty p {
+    font-size: 12px
+}
+
+.e-item small {
+    font-size: 9px
+}
+
+.e-item p {
+    font-size: 12px
+}
+
+.tip {
+    font-size: 11px;
+    line-height: 1.6
+}
+
+.tip span b {
+    font-size: 10px
+}
+
+.schema-title small,
+.notes-page>small {
+    font-size: 11px
+}
+
+.schema-title p {
+    font-size: 13px
+}
+
+.schema-card div small {
+    font-size: 9px
+}
+
+.schema-card div b {
+    font-size: 14px
+}
+
+.schema-card div i {
+    font-size: 9px
+}
+
+.schema-card p {
+    font-size: 10px
+}
+
+.notes-page p,
+.notes-page li {
+    font-size: 14px
+}
+
+.modal-card>small {
+    font-size: 11px
+}
+
+.modal-card>p {
+    font-size: 13px
+}
+
+#suspectList button {
+    font-size: 13px
+}
+
+#suspectList small {
+    font-size: 10px
+}
+
+#verdict {
+    font-size: 13px
+}
+
+.manual-grid b {
+    font-size: 11px
+}
+
+.manual-grid code {
+    font-size: 12px
+}
+
+.manual-grid p {
+    font-size: 12px
+}
+
+.crime-photo>span {
+    font-size: 10px
+}
+
+@media(max-width:760px) {
+    .board-head p {
+        font-size: 13px
+    }
+
+    .case-card h2 {
+        font-size: 21px
+    }
+
+    .tab {
+        font-size: 9px
+    }
+
+    .crime-photo>span {
+        font-size: 9px
+    }
+
+    .hint {
+        font-size: 11px
+    }
+
+    .mission small {
+        font-size: 9px
+    }
+}

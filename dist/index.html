@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#080c12">
+    <title>SQL//KILLER — Data Crime Bureau</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+  <script type="module" crossorigin src="/assets/index-6bb1fc51.js"></script>
+  <link rel="stylesheet" href="/assets/index-95e9a1c1.css">
+</head>
+
+<body>
+    <div class="grid-bg"></div>
+    <header><button class="logo" id="homeBtn"><span>SQL</span>//KILLER</button>
+        <div class="case-live"><i></i><span id="headerCase">DATA CRIME BUREAU</span><b id="headerStatus">ONLINE</b>
+        </div>
+        <div class="rank"><small>RANK</small><b id="rankText">ROOKIE</b></div>
+        <div class="agent">DC</div>
+    </header>
+    <div id="caseBoard" class="case-board">
+        <div class="board-head">
+            <div><small>METROPOLITAN DATA CRIME BUREAU</small>
+                <h1>แฟ้มคดีค้างสะสม</h1>
+                <p>ใช้ฐานข้อมูล ไหวพริบ และ SQL เพื่อเปิดโปงความจริง</p>
+            </div>
+            <div class="career"><span id="solvedCount">0/4</span><small>CASES CLOSED</small></div>
+        </div>
+        <div id="caseGrid" class="case-grid"></div>
+        <div class="board-foot"><span>◈ CLEARANCE: DETECTIVE L1</span><button id="handbookBtn">▤ SQL FIELD
+                MANUAL</button></div>
+    </div>
+    <main id="game" class="hidden">
+        <aside class="case"><button class="back" id="backBtn">← CASE BOARD</button><small id="division">DATA CRIME
+                BUREAU</small>
+            <h1 id="caseTitle"></h1>
+            <div class="meta" id="caseMeta"></div>
+            <p class="brief" id="caseBrief"></p>
+            <div class="label">ภารกิจ <b id="progress">0 / 3</b></div>
+            <div id="missions"></div><button id="accuse" disabled>⚠ สรุปสำนวนคดี <small>LOCKED</small></button>
+            <div class="clearance">◈ <span>SQL CONCEPT<b id="concept"></b></span></div>
+        </aside>
+        <section class="workspace">
+            <div id="sceneWrap" class="crime-photo crime-photo-main hidden"><img id="sceneImage"
+                    src="/images/server-crime-scene.png" alt="สถานที่เกิดเหตุ">
+                <div class="scanline"></div>
+                <div class="scene-corners"></div><span id="sceneLabel">FORENSIC CAPTURE</span>
+            </div>
+            <nav><button class="tab active" data-tab="terminal">⌘ SQL TERMINAL</button><button class="tab"
+                    data-tab="schema">◫ DATABASE SCHEMA</button><button class="tab" data-tab="notes">▤ CASE
+                    NOTES</button><span class="connected"><i></i><span id="dbName">case_db</span><b>ENCRYPTED</b></span>
+            </nav>
+            <div id="terminal">
+                <div class="editor">
+                    <div class="windowbar"><span>● ● ●</span><b>investigation.sql</b><button id="clear">CLEAR</button>
+                    </div>
+                    <div class="code">
+                        <div>1<br>2<br>3<br>4<br>5</div><textarea id="sql" spellcheck="false"></textarea>
+                    </div>
+                    <div class="runbar"><span>SQL ▾</span><span>UTF-8 · READ ONLY</span><button id="run">▶ RUN QUERY
+                            <small>CTRL ↵</small></button></div>
+                </div>
+                <div class="results">
+                    <div class="result-head"><span><i></i> QUERY RESULT <small id="status">Ready</small></span><b
+                            id="rows">0 rows</b></div>
+                    <div class="table-wrap">
+                        <table id="table"></table>
+                    </div>
+                </div>
+            </div>
+            <div id="schema" class="hidden">
+                <div class="schema-title"><small>LIVE SCHEMA</small>
+                    <h2>ฐานข้อมูลคดี</h2>
+                    <p>คลิกตารางเพื่อสร้าง query เริ่มต้น</p>
+                </div>
+                <div id="schemaGrid"></div>
+            </div>
+            <div id="notes" class="hidden">
+                <div class="notes-page"><small>DETECTIVE NOTES</small>
+                    <h2 id="notesTitle"></h2>
+                    <div id="caseNotes"></div>
+                </div>
+            </div>
+            <div class="hint"><b>ASSISTANT</b>
+                <p id="hint"></p><button id="nextHint">ขอคำใบ้ →</button>
+            </div>
+        </section>
+        <aside class="evidence">
+            <div class="e-title"><span><small>EVIDENCE BOARD</small><b>หลักฐานที่ค้นพบ</b></span><strong
+                    id="count">0</strong></div>
+            <div id="empty">
+                <div class="radar">⌁</div><b>ยังไม่พบหลักฐาน</b>
+                <p>สอบสวนผ่าน SQL Terminal<br>เพื่อดึงข้อมูลจากแฟ้มคดี</p>
+            </div>
+            <div id="evidenceList"></div>
+            <div class="tip">! <span><b>FORENSIC TIP</b><span id="tipText"></span></span></div>
+        </aside>
+    </main>
+    <div id="modal" class="modal hidden">
+        <div class="modal-card"><button class="close" data-close="modal">×</button><small>FINAL DEDUCTION</small>
+            <h2 id="question">ใครคือผู้กระทำผิด?</h2>
+            <p>เลือกบุคคลที่สอดคล้องกับหลักฐานทั้งหมด</p>
+            <div id="suspectList"></div><button id="confirm" disabled>ยืนยันข้อสรุป</button>
+            <div id="verdict"></div>
+        </div>
+    </div>
+    <div id="handbook" class="modal hidden">
+        <div class="modal-card handbook"><button class="close" data-close="handbook">×</button><small>SQL FIELD MANUAL /
+                REV.04</small>
+            <h2>คู่มือนักสืบฐานข้อมูล</h2>
+            <div class="manual-grid">
+                <article><b>01 · SELECT</b><code>SELECT * FROM people;</code>
+                    <p>ดูข้อมูลทุกคอลัมน์จากตาราง</p>
+                </article>
+                <article><b>02 · WHERE</b><code>SELECT * FROM logs<br>WHERE status = 'DENIED';</code>
+                    <p>กรองเฉพาะแถวที่ตรงเงื่อนไข</p>
+                </article>
+                <article><b>03 · JOIN</b><code>SELECT * FROM people<br>JOIN logs ON people.id = logs.person_id;</code>
+                    <p>เชื่อมข้อมูลที่มีรหัสสัมพันธ์กัน</p>
+                </article>
+                <article><b>04 · ORDER / LIMIT</b><code>ORDER BY time DESC<br>LIMIT 5;</code>
+                    <p>เรียงและจำกัดจำนวนผลลัพธ์</p>
+                </article>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>
