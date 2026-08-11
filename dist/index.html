@@ -11,8 +11,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index-6bb1fc51.js"></script>
-  <link rel="stylesheet" href="/assets/index-95e9a1c1.css">
+  <script type="module" crossorigin src="/assets/index-c636ee37.js"></script>
+  <link rel="stylesheet" href="/assets/index-bcd8eb29.css">
 </head>
 
 <body>
@@ -104,8 +104,10 @@
     <div id="modal" class="modal hidden">
         <div class="modal-card"><button class="close" data-close="modal">×</button><small>FINAL DEDUCTION</small>
             <h2 id="question">ใครคือผู้กระทำผิด?</h2>
-            <p>เลือกบุคคลที่สอดคล้องกับหลักฐานทั้งหมด</p>
-            <div id="suspectList"></div><button id="confirm" disabled>ยืนยันข้อสรุป</button>
+            <p>พิมพ์ชื่อบุคคลที่สอดคล้องกับหลักฐานทั้งหมด</p>
+            <label class="accusation-field" for="culpritName"><span>ชื่อผู้ต้องหา</span>
+                <input id="culpritName" type="text" autocomplete="off" spellcheck="false" placeholder="พิมพ์ชื่อคนร้าย">
+            </label><button id="confirm" disabled>ยืนยันข้อสรุป</button>
             <div id="verdict"></div>
         </div>
     </div>

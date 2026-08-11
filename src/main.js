@@ -12,7 +12,6 @@ const $ = selector => document.querySelector(selector);
 const completed = new Set(JSON.parse(localStorage.getItem('sqlkiller_completed') || '[]'));
 let active = null;
 let found = new Set();
-let selected = 0;
 let hintIndex = 0;
 
 function escapeHTML(value) {
@@ -42,7 +41,6 @@ function renderBoard() {
 function openCase(index) {
   active = cases[index];
   found = new Set();
-  selected = 0;
   hintIndex = 0;
   $('#caseBoard').classList.add('hidden');
   $('#game').classList.remove('hidden');
@@ -125,16 +123,16 @@ function renderRows(rows, columns) {
     ).join('') + '</tbody>';
 }
 
-function addEvidence(table) {
-  const objective = active.objectives.find(item => item[0] === table);
-  if (!objective || found.has(table)) return;
-  found.add(table);
+function addEvidence(objective) {
+  const key = objective[0];
+  if (found.has(key)) return;
+  found.add(key);
   const element = document.createElement('div');
   element.className = 'e-item';
   element.innerHTML = '<i>✦</i><div><small>' + objective[3] + '</small><p>' + objective[4] + '</p></div>';
   $('#evidenceList').append(element);
   $('#empty').classList.add('hidden');
-  const mission = document.querySelector('.mission[data-table="' + table + '"]');
+  const mission = document.querySelector('.mission[data-table="' + key + '"]');
   mission.classList.add('done');
   mission.querySelector('span').textContent = '✓';
   $('#count').textContent = found.size;
@@ -145,6 +143,14 @@ function addEvidence(table) {
   }
 }
 
+function collectEvidence(usedTables) {
+  const normalized = new Set(usedTables.map(name => name.toLowerCase()));
+  active.objectives.forEach(objective => {
+    const required = objective[5] || [objective[0]];
+    if (required.every(table => normalized.has(table.toLowerCase()))) addEvidence(objective);
+  });
+}
+
 function runQuery() {
   const query = $('#sql').value.trim();
   $('#status').textContent = 'Executing…';
@@ -153,7 +159,7 @@ function runQuery() {
       if (!/^select\b/i.test(query)) throw new Error('โหมดสืบสวนรองรับเฉพาะคำสั่ง SELECT');
       const result = executeSQL(query, active.tables);
       renderRows(result.data, result.columns);
-      result.tables.forEach(addEvidence);
+      collectEvidence(result.tables);
       $('#status').textContent = 'Success';
       $('#rows').textContent = result.data.length + ' rows · ' + Math.ceil(Math.random() * 6) + 'ms';
     } catch (error) {
@@ -178,7 +184,6 @@ function goBoard() {
 }
 
 function openAccusation() {
-  selected = 0;
   $('#modal').classList.remove('hidden');
   $('#question').textContent = active.question;
   $('#confirm').disabled = true;
@@ -186,19 +191,13 @@ function openAccusation() {
   $('#confirm').dataset.closed = 'false';
   $('#verdict').className = '';
   $('#verdict').innerHTML = '';
-  const people = active.tables[active.suspectTable];
-  $('#suspectList').innerHTML = people.map(person =>
-    '<button data-id="' + person.id + '"><span>0' + person.id + '</span><div><b>' + person.name +
-    '</b><small>' + (person.role || person.department || person.team || 'SUSPECT') + '</small></div></button>'
-  ).join('');
-  document.querySelectorAll('#suspectList button').forEach(button => {
-    button.onclick = () => {
-      document.querySelectorAll('#suspectList button').forEach(item => item.classList.remove('selected'));
-      button.classList.add('selected');
-      selected = Number(button.dataset.id);
-      $('#confirm').disabled = false;
-    };
-  });
+  $('#culpritName').value = '';
+  $('#culpritName').disabled = false;
+  window.setTimeout(() => $('#culpritName').focus(), 0);
+}
+
+function normalizeName(value) {
+  return value.trim().replace(/\s+/g, ' ').toLocaleLowerCase('th-TH');
 }
 
 function confirmAccusation() {
@@ -207,7 +206,8 @@ function confirmAccusation() {
     goBoard();
     return;
   }
-  const won = selected === active.culprit;
+  const culprit = active.tables[active.suspectTable].find(person => person.id === active.culprit);
+  const won = culprit && normalizeName($('#culpritName').value) === normalizeName(culprit.name);
   const verdict = $('#verdict');
   verdict.className = won ? 'win' : 'lose';
   verdict.innerHTML = won
@@ -216,6 +216,7 @@ function confirmAccusation() {
   if (won) {
     completed.add(active.id);
     localStorage.setItem('sqlkiller_completed', JSON.stringify([...completed]));
+    $('#culpritName').disabled = true;
     $('#confirm').textContent = 'ปิดแฟ้มและกลับหน้าคดี';
     $('#confirm').dataset.closed = 'true';
   }
@@ -239,6 +240,14 @@ $('#homeBtn').onclick = goBoard;
 $('#handbookBtn').onclick = () => $('#handbook').classList.remove('hidden');
 $('#accuse').onclick = openAccusation;
 $('#confirm').onclick = confirmAccusation;
+$('#culpritName').addEventListener('input', () => {
+  $('#confirm').disabled = !$('#culpritName').value.trim();
+  $('#verdict').className = '';
+  $('#verdict').innerHTML = '';
+});
+$('#culpritName').addEventListener('keydown', event => {
+  if (event.key === 'Enter' && !$('#confirm').disabled) confirmAccusation();
+});
 document.querySelectorAll('[data-close]').forEach(button => {
   button.onclick = () => $('#' + button.dataset.close).classList.add('hidden');
 });

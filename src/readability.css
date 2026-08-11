@@ -234,12 +234,8 @@ td {
     font-size: 13px
 }
 
-#suspectList button {
-    font-size: 13px
-}
-
-#suspectList small {
-    font-size: 10px
+.accusation-field input {
+    font-size: 15px
 }
 
 #verdict {

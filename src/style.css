@@ -919,35 +919,32 @@ tr:hover td {
     color: #7b899a
 }
 
-#suspectList {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin: 20px 0
+.accusation-field {
+    display: block;
+    margin: 20px 0 12px
 }
 
-#suspectList button {
-    display: flex;
-    gap: 10px;
-    text-align: left;
-    padding: 11px;
+.accusation-field span {
+    display: block;
+    margin-bottom: 7px;
+    color: #8b98a8;
+    font: 9px var(--mono)
+}
+
+.accusation-field input {
+    width: 100%;
+    height: 46px;
+    padding: 0 13px;
     border: 1px solid var(--line);
+    outline: 0;
     background: #0e1722;
-    color: #8290a0
+    color: #e7edf4;
+    font: 15px var(--sans)
 }
 
-#suspectList button.selected {
+.accusation-field input:focus {
     border-color: var(--red);
-    background: #25141b
-}
-
-#suspectList b,
-#suspectList small {
-    display: block
-}
-
-#suspectList b {
-    color: #c6d0da
+    box-shadow: 0 0 0 2px #ff34551a
 }
 
 #confirm {
@@ -1120,8 +1117,7 @@ tr:hover td {
     }
 
     #schemaGrid,
-    .manual-grid,
-    #suspectList {
+    .manual-grid {
         grid-template-columns: 1fr
     }
 
