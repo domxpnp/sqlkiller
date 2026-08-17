@@ -278,11 +278,39 @@ header {
     font: 9px var(--mono)
 }
 
-.board-foot button {
+.board-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
+.board-foot button,
+.board-foot .exam-entry {
     border: 1px solid #394656;
     background: #111a24;
     color: #aab5bf;
-    padding: 10px 14px
+    padding: 10px 14px;
+    text-decoration: none
+}
+
+.board-foot .exam-entry {
+    border-color: #2f7669;
+    color: var(--cyan);
+    transition: .2s
+}
+
+.board-foot .exam-entry:hover {
+    border-color: var(--cyan);
+    background: #102823;
+    box-shadow: 0 0 20px #42e0ce18
+}
+
+.exam-entry b {
+    margin-right: 7px;
+    color: #07110f;
+    background: var(--cyan);
+    padding: 2px 4px;
+    font-size: 7px
 }
 
 main {
@@ -1093,6 +1121,24 @@ tr:hover td {
 
     .case-card {
         min-height: 190px
+    }
+
+    .board-foot {
+        align-items: flex-start;
+        gap: 14px;
+        flex-direction: column
+    }
+
+    .board-actions {
+        width: 100%;
+        flex-wrap: wrap
+    }
+
+    .board-foot .exam-entry,
+    .board-foot button {
+        flex: 1;
+        min-width: max-content;
+        text-align: center
     }
 
     main {

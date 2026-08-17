@@ -11,8 +11,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index-c636ee37.js"></script>
-  <link rel="stylesheet" href="/assets/index-bcd8eb29.css">
+  <script type="module" crossorigin src="/assets/main-CIMGW_6H.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-P2Xu9kJm.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-DlCb7C48.css">
 </head>
 
 <body>
@@ -32,8 +33,12 @@
             <div class="career"><span id="solvedCount">0/4</span><small>CASES CLOSED</small></div>
         </div>
         <div id="caseGrid" class="case-grid"></div>
-        <div class="board-foot"><span>◈ CLEARANCE: DETECTIVE L1</span><button id="handbookBtn">▤ SQL FIELD
-                MANUAL</button></div>
+        <div class="board-foot"><span>◈ CLEARANCE: DETECTIVE L1</span>
+            <div class="board-actions">
+                <a class="exam-entry" href="/exam.html"><b>NEW</b> ◇ DEVELOPER EXAM</a>
+                <button id="handbookBtn">▤ SQL FIELD MANUAL</button>
+            </div>
+        </div>
     </div>
     <main id="game" class="hidden">
         <aside class="case"><button class="back" id="backBtn">← CASE BOARD</button><small id="division">DATA CRIME
@@ -130,8 +135,7 @@
                 </article>
             </div>
         </div>
-    </div>
-    
+    </div>
 </body>
 
 </html>

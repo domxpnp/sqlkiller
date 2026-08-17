@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#07100f">
+    <meta name="description" content="Developer Exam Lab แบบฝึกปฏิบัติ SQL และ Programming จาก SQL//KILLER">
+    <title>Developer Exam Lab — SQL//KILLER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="exam-grid-bg" aria-hidden="true"></div>
+    <header class="exam-topbar">
+        <a class="exam-brand" href="/" aria-label="กลับ SQL Killer">
+            <span>SQL</span>//KILLER <small>EXAM LAB</small>
+        </a>
+        <div class="exam-session">
+            <i></i>
+            <span>DEVELOPER ASSESSMENT</span>
+            <b id="examSessionStatus">READY</b>
+        </div>
+        <div class="exam-clock">
+            <small>TIME LEFT</small>
+            <strong id="examTimer">90:00</strong>
+        </div>
+        <a class="exam-exit" href="/">← กลับเกม SQL</a>
+    </header>
+
+    <main id="examIntro" class="exam-intro">
+        <section class="exam-hero">
+            <div class="exam-kicker"><span>NEW MODULE</span> PRACTICAL ASSESSMENT / REV.01</div>
+            <h1>Developer<br><em>Exam Lab</em></h1>
+            <p>สนามจำลองข้อสอบงานจริงจากไฟล์โจทย์สินค้า ฝึกออกแบบฐานข้อมูล เขียน SQL และแปลงข้อมูลด้วยโปรแกรม
+                โดยแยกออกจากเกมสืบสวน SQL เดิมทั้งหมด</p>
+            <div class="exam-hero-actions">
+                <button id="examStartBtn" class="exam-primary" type="button">เริ่มทำข้อสอบ <span>→</span></button>
+                <button id="examResetIntroBtn" class="exam-quiet hidden" type="button">เริ่มรอบใหม่</button>
+            </div>
+            <div class="exam-resume-note" id="examResumeNote">คำตอบจะถูกบันทึกอัตโนมัติในเครื่องนี้</div>
+        </section>
+
+        <section class="exam-briefing" aria-label="รายละเอียดข้อสอบ">
+            <div class="exam-briefing-head">
+                <div><small>MISSION BRIEFING</small>
+                    <h2>แบบทดสอบออกแบบโปรแกรมแสดงรายการสินค้า</h2>
+                </div>
+                <span>90 MIN</span>
+            </div>
+            <div class="exam-stats">
+                <article><strong>09</strong><span>โจทย์ปฏิบัติ</span><small>ครบทั้ง SQL และ Code</small></article>
+                <article><strong>02</strong><span>หมวดทักษะ</span><small>Database / Programmer</small></article>
+                <article><strong>03</strong><span>แถวข้อมูล</span><small>2 ร้าน · 2 Orders</small></article>
+            </div>
+            <div class="exam-rules">
+                <h3>เงื่อนไขการฝึก</h3>
+                <ul>
+                    <li><i>01</i><span>เขียนคำตอบเป็นโค้ดในแต่ละข้อ ระบบจะเก็บ draft ให้อัตโนมัติ</span></li>
+                    <li><i>02</i><span>การตรวจเป็นเพียงเช็กลิสต์องค์ประกอบ ไม่ใช่การรันหรือตัดสินความถูกต้องทั้งหมด</span></li>
+                    <li><i>03</i><span>ดาวน์โหลดคำตอบเป็น Markdown หรือ Excel (.xlsx) ได้เมื่อพร้อมส่งหรือทบทวน</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="exam-dataset-preview">
+            <div class="exam-section-heading">
+                <div><small>REFERENCE DATA / READ ONLY</small>
+                    <h2>ข้อมูลที่ใช้ร่วมกันทุกข้อ</h2>
+                </div>
+                <button class="exam-outline" id="examOpenDataIntroBtn" type="button">ดูตารางเต็ม ↗</button>
+            </div>
+            <div class="exam-order-cards" id="examIntroOrderCards"></div>
+        </section>
+    </main>
+
+    <main id="examWorkspace" class="exam-workspace hidden">
+        <nav class="exam-question-nav" aria-label="รายการข้อสอบ">
+            <div class="exam-nav-head">
+                <button id="examOverviewBtn" type="button">← OVERVIEW</button>
+                <small>QUESTION MAP</small>
+                <div class="exam-progress-line"><i id="examProgressBar"></i></div>
+                <p><strong id="examProgressText">0 / 9</strong> ข้อที่ทำเสร็จ</p>
+                <span id="examProgressA11y" class="exam-sr-only" role="progressbar" aria-label="ความคืบหน้าข้อสอบ"
+                    aria-valuemin="0" aria-valuemax="9" aria-valuenow="0"></span>
+            </div>
+            <div id="examQuestionList"></div>
+            <div class="exam-nav-actions">
+                <button id="examDownloadBtn" type="button">⇩ Markdown</button>
+                <button id="examExcelBtn" type="button">⇩ Excel (.xlsx)</button>
+                <button id="examFinishBtn" class="exam-finish" type="button">ส่งแบบฝึกหัด</button>
+            </div>
+        </nav>
+
+        <section class="exam-question-panel">
+            <div id="examSubmittedBanner" class="exam-submitted-banner hidden">
+                <span>✓</span>
+                <div><b id="examLockedTitle">ส่งแบบฝึกหัดรอบนี้แล้ว</b><small id="examLockedMessage">เปิดดูและดาวน์โหลดคำตอบได้
+                        แต่ไม่สามารถแก้ไขจนกว่าจะเริ่มรอบใหม่</small></div>
+                <button id="examNewAttemptBtn" type="button">เริ่มรอบใหม่</button>
+            </div>
+            <div class="exam-question-meta">
+                <span id="examQuestionSection">SQL</span>
+                <small id="examQuestionEyebrow">DATABASE DESIGN</small>
+                <b id="examQuestionNumber">01 / 09</b>
+            </div>
+            <div class="exam-question-copy">
+                <h1 id="examQuestionTitle" tabindex="-1"></h1>
+                <p id="examQuestionPrompt"></p>
+                <ul id="examQuestionRequirements"></ul>
+            </div>
+
+            <div class="exam-editor-card">
+                <div class="exam-editor-head">
+                    <span><i></i><i></i><i></i><b id="examEditorFile">answer-01.sql</b></span>
+                    <label for="examLanguage">LANGUAGE
+                        <select id="examLanguage">
+                            <option value="sql">SQL</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="typescript">TypeScript</option>
+                            <option value="json">JSON</option>
+                            <option value="csharp">C#</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="exam-editor-body">
+                    <div class="exam-line-rail" id="examLineRail">1</div>
+                    <textarea id="examAnswer" aria-label="พื้นที่เขียนคำตอบ" spellcheck="false"></textarea>
+                </div>
+                <div class="exam-editor-foot">
+                    <span id="examSaveStatus">พร้อมบันทึก</span>
+                    <span><kbd>CTRL</kbd> + <kbd>ENTER</kbd> ตรวจองค์ประกอบ</span>
+                    <b id="examLineCount">1 LINE</b>
+                </div>
+            </div>
+
+            <div class="exam-mobile-tools">
+                <button id="examMobileDataBtn" type="button">▦ ข้อมูลอ้างอิง</button>
+                <button id="examMobileHintBtn" type="button">◇ แนวทาง</button>
+            </div>
+
+            <div class="exam-question-actions">
+                <button id="examPrevBtn" class="exam-secondary" type="button">← ข้อก่อนหน้า</button>
+                <button id="examCheckBtn" class="exam-check" type="button">ตรวจองค์ประกอบ <span>CTRL ↵</span></button>
+                <button id="examMarkBtn" class="exam-primary" type="button">บันทึกเป็นทำแล้ว <span>✓</span></button>
+                <button id="examNextBtn" class="exam-secondary" type="button">ข้อต่อไป →</button>
+            </div>
+        </section>
+
+        <section class="exam-reference-panel">
+            <div class="exam-reference-head">
+                <small>REFERENCE / READ ONLY</small>
+                <button id="examOpenDataBtn" type="button">EXPAND ↗</button>
+            </div>
+            <div class="exam-mini-orders" id="examMiniOrders"></div>
+            <div class="exam-checklist">
+                <div class="exam-side-heading"><span>CHECKLIST</span><small>ตรวจรูปแบบเบื้องต้น</small></div>
+                <div id="examCriteria"></div>
+                <p id="examCheckNote">กด “ตรวจองค์ประกอบ” เมื่อเขียนคำตอบแล้ว</p>
+            </div>
+            <div class="exam-hint-card">
+                <div class="exam-side-heading"><span>FIELD NOTE</span><small>แนวทาง ไม่ใช่เฉลย</small></div>
+                <button id="examHintBtn" type="button">เปิดแนวทางของข้อนี้ <span>+</span></button>
+                <p id="examHintText" class="hidden"></p>
+            </div>
+            <div class="exam-source-note">
+                <b>!</b>
+                <p>โจทย์ต้นฉบับไม่มีเฉลยหรือเกณฑ์คะแนน ระบบจึงไม่อ้างว่าเป็นการตรวจคำตอบแบบสมบูรณ์</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="examDataModal" class="exam-modal hidden" role="dialog" aria-modal="true" aria-labelledby="examDataTitle">
+        <div class="exam-modal-card exam-data-modal-card">
+            <button class="exam-modal-close" data-exam-close="examDataModal" type="button" aria-label="ปิด">×</button>
+            <small>REFERENCE DATA / SOURCE</small>
+            <h2 id="examDataTitle">ตารางข้อมูลรายการสินค้า</h2>
+            <p>ข้อมูลนี้เป็น Read only และใช้เป็นโจทย์ร่วมกันทั้ง 9 ข้อ</p>
+            <div class="exam-full-table-wrap">
+                <table class="exam-full-table">
+                    <thead>
+                        <tr>
+                            <th>ลำดับ</th><th>ร้าน</th><th>สถานะสินค้า</th><th>วันที่สั่งซื้อ</th><th>หมายเลขสั่งซื้อ</th>
+                            <th>รายการ</th><th>ตัวเลือกสินค้า</th><th>จำนวน</th><th>ยอดรวม</th><th>ค่าจัดส่ง</th><th>ส่วนลด</th><th>รวมสุทธิ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="examFullTableBody"></tbody>
+                </table>
+            </div>
+            <div class="exam-data-warning"><b>DATA NOTE</b> ค่าจัดส่ง 15 อยู่ใน Detail ทั้งสองแถวของคำสั่งซื้อ TH202011091 ตามข้อมูลต้นฉบับ</div>
+        </div>
+    </div>
+
+    <div id="examSubmitModal" class="exam-modal hidden" role="dialog" aria-modal="true" aria-labelledby="examSubmitTitle">
+        <div class="exam-modal-card exam-submit-card">
+            <button class="exam-modal-close" data-exam-close="examSubmitModal" type="button" aria-label="ปิด">×</button>
+            <small>FINAL REVIEW</small>
+            <h2 id="examSubmitTitle">พร้อมส่งแบบฝึกหัดหรือยัง?</h2>
+            <div class="exam-submit-score"><strong id="examSubmitCompleted">0/9</strong><span>ข้อที่ทำเสร็จ</span></div>
+            <p id="examSubmitMessage"></p>
+            <div class="exam-submit-actions">
+                <button class="exam-secondary" data-exam-close="examSubmitModal" type="button">กลับไปตรวจคำตอบ</button>
+                <button class="exam-primary" id="examConfirmSubmitBtn" type="button">ยืนยันส่งรอบนี้</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="examResetModal" class="exam-modal hidden" role="dialog" aria-modal="true" aria-labelledby="examResetTitle">
+        <div class="exam-modal-card exam-submit-card">
+            <button class="exam-modal-close" data-exam-close="examResetModal" type="button" aria-label="ปิด">×</button>
+            <small>NEW ATTEMPT</small>
+            <h2 id="examResetTitle">เริ่มรอบใหม่?</h2>
+            <p>คำตอบ ความคืบหน้า และเวลาของรอบปัจจุบันจะถูกลบจากเครื่องนี้ กรุณาดาวน์โหลดคำตอบก่อนหากต้องการเก็บไว้</p>
+            <div class="exam-submit-actions">
+                <button class="exam-secondary" data-exam-close="examResetModal" type="button">ยกเลิก</button>
+                <button class="exam-danger" id="examConfirmResetBtn" type="button">ลบรอบเดิมและเริ่มใหม่</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="examToast" class="exam-toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/exam.js"></script>
+</body>
+
+</html>
